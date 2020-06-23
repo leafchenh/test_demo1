@@ -1,0 +1,17 @@
+{% extends 'put.html' %}
+{% block title %}
+<title>提交查询</title>
+{% endblock title %}
+{% block tips %}
+<h2 class="form-signin-heading">提交查询信息</h2>
+{% endblock tips %}
+{% block data1 %}
+<label for="inputID" class="sr-only">Client ID</label>
+<input name="client_id" id="inputID" class="form-control" placeholder="客户端ID" oninput = "value=value.replace(/[^\d]/g,'')">
+{% endblock data1 %}
+{% block data2 %}
+<label for="inputMin" class="sr-only">Grade</label>
+<input name="value_min" id="inputMin" class="form-control" placeholder="开始名次" oninput = "value=value.replace(/[^\d]/g,'')" required="required">
+<label for="inputMax" class="sr-only">Grade</label>
+<input name="value_max" id="inputMax" class="form-control" placeholder="结束名次" oninput = "value=value.replace(/[^\d]/g,'')" required="required">
+{% endblock data2 %}

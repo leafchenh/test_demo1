@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>排名展示</title>
+</head>
+<body>
+
+<table border="2" style="width: 300px;border-collapse: collapse;">
+    <thead>
+        <th>排名</th>
+        <th>客户端ID</th>
+        <th>分数</th>
+    </thead>
+    <tbody>
+    {% for i in users_list %}
+    <tr style="width: 300px;border-collapse: collapse;">
+        <td>{{i.ranking}}</td>
+        <td>{{i.info.client_id}}</td>
+        <td>{{i.info.grade}}</td>
+        {% endfor %}
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>

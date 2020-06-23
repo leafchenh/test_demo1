@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>用户信息</title>
+    {% endblock title %}
+    <link rel="stylesheet" href="/static/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+</head>
+<body>
+
+<div class="container">
+
+    <form class="form-signin" action="" method="post">
+        {% block tips %}
+        <h2 class="form-signin-heading">输入您的信息</h2>
+        {% endblock tips %}
+        {% block data1 %}
+        <label for="inputClientID" class="sr-only">Client ID</label>
+        <input name="client_id" id="inputClientID" class="form-control" placeholder="客户端ID" oninput = "value=value.replace(/[^\d]/g,'')">
+        {% endblock data1 %}
+        {% block data2 %}
+        <label for="inputGrade" class="sr-only">Grade</label>
+        <input name="grade" id="inputGrade" class="form-control" placeholder="分数" oninput = "value=value.replace(/[^\d]/g,'')">
+        {% endblock data2 %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+</div> <!-- /container -->
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+</body>
+</html>
