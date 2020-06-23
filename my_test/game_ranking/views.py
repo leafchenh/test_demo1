@@ -42,26 +42,32 @@ def get_grade_ranking(request):
             user = user_data.objects.get(client_id=clientId)
             value_min = int(request.POST.get('value_min'))
             value_max = int(request.POST.get('value_max'))
-            # 获取当前所有用户数据，做对比
-            all_grades = user_data.objects.values_list('grade')
-            print('--------------当前所有grade', all_grades)
-            grade_list = []
-            for grade in all_grades:
-                print('-----------当前grade', grade, type(grade))
-                grade_list.append(int(grade[0]))
-            grade_list = sorted(grade_list, reverse=True)
-            print('---------cisipaixu', grade_list)
-            # 按照排名获取该用户的对象列表
-            current_user = {}
-            users_list = []
-            for count, grade in enumerate(grade_list):
-                if user == user_data.objects.get(grade=grade):
-                    current_user = {'info': user_data.objects.get(grade=grade), 'ranking': count}
-                users_list.append({'info': user_data.objects.get(grade=grade), 'ranking': count})
-            users_list = users_list[int(value_min): int(value_max)]
-            users_list.append(current_user)
-            # 加入当前端口ID及其数据
-            print(users_list)
-            return render(request, 'ranking.html', {'users_list': users_list, 'tags': ['id', '客户端ID', '分数']})
+            if value_min > 0 and value_max > 0:
+                if value_min < value_max:
+                    value_min = value_min - 1
+                    # 获取当前所有用户数据，做对比
+                    all_grades = user_data.objects.values_list('grade')
+                    grade_list = []
+                    for grade in all_grades:
+                        grade_list.append(int(grade[0]))
+                    grade_list = sorted(grade_list, reverse=True)
+
+                    # 按照排名获取该用户的对象列表
+                    current_user = {}
+                    users_list = []
+                    for count, grade in enumerate(grade_list):
+                        if user == user_data.objects.get(grade=grade):
+                            current_user = {'info': user_data.objects.get(grade=grade), 'ranking': count +1}
+                        users_list.append({'info': user_data.objects.get(grade=grade), 'ranking': count +1})
+                    users_list = users_list[int(value_min): int(value_max)]
+                    users_list.append(current_user)
+
+                    # 加入当前端口ID及其数据
+                    print(users_list)
+                    return render(request, 'ranking.html', {'users_list': users_list, 'tags': ['id', '客户端ID', '分数']})
+                else:
+                    return HttpResponse('范围错误')
+            else:
+                return HttpResponse('范围错误')
         except:
             return HttpResponse('请检查ID等信息是否正确')
